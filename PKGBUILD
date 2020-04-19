@@ -1,45 +1,64 @@
 # Maintainer: kaptoxic
 # Contributor: Anton Bazhenov <anton.bazhenov at gmail>
 # Contributor: Aeternus Atterratio <atterratio (at) Gmail.com>
+# Contributor: Aleksy Grabowski <hurufu@gmail.com>
 
-pkgname=drakon-editor
-pkgver=1.29
+origname=drakon-editor
+origver=1.31
+reponame='repo.git'
+
+pkgname=${origname}-git
+pkgver=${origver}.r9.g435a4ce
 pkgrel=1
 pkgdesc="A free cross-platform editor for the DRAKON visual language"
 arch=('any')
 url="http://drakon-editor.sourceforge.net/"
 license=('custom:public_domain')
-depends=('sqlite-tcl' 'tcllib' 'tk' 'tkimg')
-source=("http://downloads.sourceforge.net/project/${pkgname}/drakon_editor${pkgver}.zip"
-        "${pkgname}.png"
-        "${pkgname}.desktop"
-        "${pkgname}.sh"
-        "LICENSE")
-noextract=("drakon_editor${pkgver}.zip")
-md5sums=('ad044480e438435340ef3ba5a0da5238'
+depends=('sqlite-tcl'
+         'tcllib'
+         'tk'
+         'tkimg'
+)
+makedepends=('git'
+             'zip'
+             'unzip'
+)
+conflicts=("${origname}")
+source=("${reponame}::git+git://github.com/stepan-mitkin/drakon_editor.git"
+        "${origname}.png"
+        "${origname}.desktop"
+        "${origname}.sh"
+        "LICENSE"
+)
+md5sums=('SKIP'
          'fff9a96ac0e38d735452e935207d2892'
          'eadc8e1b7c72f2f6fb438c254fe556e5'
-         '9a3c1ca7b17a8c2f86545fc974277587'
-         '155472d3f6036fc8ea0eacabbf442ec4')
+         '27623c72d64232e978e894ed7b7924f0'
+         '155472d3f6036fc8ea0eacabbf442ec4'
+)
 
 build() {
-  cd "${srcdir}"
-  mkdir -p "${pkgname}-${pkgver}"
-  bsdtar -xf "drakon_editor${pkgver}.zip" -C "${pkgname}-${pkgver}"
+    cd "${srcdir}/${reponame}"
+    ./make_release.sh
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+    destdir="${pkgdir}/opt/${origname}/${pkgver}"
+    zipname="drakon_editor${origver}.zip"
 
-  # Install program files
-  mkdir -p "${pkgdir}/usr/share/${pkgname}"
-  cp -r * "${pkgdir}/usr/share/${pkgname}"
-  install -Dm755 "../${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
+    cd "${srcdir}"
 
-  # Install a desktop entry
-  install -Dm644 "../${pkgname}.png" "${pkgdir}/usr/share/pixmaps/${pkgname}.png"
-  install -Dm644 "../${pkgname}.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
+    # Install program files
+    mkdir -p "${destdir}"
+    unzip "./${reponame}/${zipname}" -d "${destdir}"
 
-  # Install a license file
-  install -Dm644 ../LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    # Install launcher
+    install -Dm755 "${origname}.sh" "${pkgdir}/usr/bin/${origname}"
+
+    # Install a desktop entry
+    install -Dm644 "${origname}.png" "${pkgdir}/usr/share/pixmaps/${origname}.png"
+    install -Dm644 "${origname}.desktop" "${pkgdir}/usr/share/applications/${origname}.desktop"
+
+    # Install a license file
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${origname}/LICENSE"
 }
