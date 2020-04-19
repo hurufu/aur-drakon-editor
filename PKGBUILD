@@ -21,6 +21,7 @@ depends=('sqlite-tcl'
 )
 makedepends=('git'
              'zip'
+             'awk'
              'unzip'
 )
 conflicts=("${origname}")
@@ -36,6 +37,11 @@ md5sums=('SKIP'
          '27623c72d64232e978e894ed7b7924f0'
          '155472d3f6036fc8ea0eacabbf442ec4'
 )
+
+# FIXME: Automatic versioning isn't working, because there aren't tags in the original repo
+pkgver() {
+    git -C "${pkgname}" describe | awk -F '-' '{print $1".r"$2"."$3}'
+}
 
 build() {
     cd "${srcdir}/${reponame}"
