@@ -9,7 +9,7 @@ reponame='repo.git'
 
 pkgname=${origname}-git
 pkgver=${origver}.r9.g435a4ce
-pkgrel=2
+pkgrel=3
 pkgdesc="A free cross-platform editor for the DRAKON visual language"
 arch=('any')
 url="http://drakon-editor.sourceforge.net/"
@@ -65,4 +65,11 @@ package() {
 
     # Install a license file
     install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${origname}/LICENSE"
+}
+
+check() {
+    # FIXME: Unit test aren't passing in the latest code and unittest.tcl
+    # doesn't report error with return code
+    cd "${srcdir}/${reponame}/unittest"
+    ./unittest.tcl
 }
