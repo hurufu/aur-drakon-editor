@@ -18,6 +18,7 @@ depends=('sqlite-tcl'
          'tcllib'
          'tk'
          'tkimg'
+         'tcllauncher'
 )
 makedepends=('git'
              'zip'
@@ -33,7 +34,7 @@ source=("${reponame}::git+git://github.com/stepan-mitkin/drakon_editor.git"
 md5sums=('SKIP'
          'fff9a96ac0e38d735452e935207d2892'
          'eadc8e1b7c72f2f6fb438c254fe556e5'
-         '27623c72d64232e978e894ed7b7924f0'
+         'SKIP'
          '155472d3f6036fc8ea0eacabbf442ec4'
 )
 
@@ -43,7 +44,7 @@ build() {
 }
 
 package() {
-    destdir="${pkgdir}/opt/${origname}/${pkgver}"
+    destdir="${pkgdir}/opt/${origname}"
     zipname="drakon_editor${origver}.zip"
 
     cd "${srcdir}"
@@ -51,6 +52,7 @@ package() {
     # Install program files
     mkdir -p "${destdir}"
     unzip "./${reponame}/${zipname}" -d "${destdir}"
+    ln -s $(which tcllauncher) "${destdir}/drakon_editor"
 
     # Install launcher
     install -Dm755 "${origname}.sh" "${pkgdir}/usr/bin/${origname}"
