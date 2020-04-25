@@ -9,7 +9,7 @@ reponame='repo.git'
 
 pkgname=${origname}-git
 pkgver=${origver}.r9.g435a4ce
-pkgrel=1
+pkgrel=2
 pkgdesc="A free cross-platform editor for the DRAKON visual language"
 arch=('any')
 url="http://drakon-editor.sourceforge.net/"
@@ -28,12 +28,14 @@ source=("${reponame}::git+git://github.com/stepan-mitkin/drakon_editor.git"
         "${origname}.png"
         "${origname}.desktop"
         "${origname}.sh"
+        "drakon-gen.sh"
         "LICENSE"
 )
 md5sums=('SKIP'
          'fff9a96ac0e38d735452e935207d2892'
          'eadc8e1b7c72f2f6fb438c254fe556e5'
-         '27623c72d64232e978e894ed7b7924f0'
+         'SKIP' # no need to check hashes for local files
+         'SKIP'
          '155472d3f6036fc8ea0eacabbf442ec4'
 )
 
@@ -52,8 +54,10 @@ package() {
     mkdir -p "${destdir}"
     unzip "./${reponame}/${zipname}" -d "${destdir}"
 
-    # Install launcher
-    install -Dm755 "${origname}.sh" "${pkgdir}/usr/bin/${origname}"
+    # Install launchers
+    bin=${pkgdir}/usr/bin
+    install -Dm755 "drakon-editor.sh" "${bin}/drakon-editor"
+    install -Dm755 "drakon-gen.sh" "${bin}/drakon-gen"
 
     # Install a desktop entry
     install -Dm644 "${origname}.png" "${pkgdir}/usr/share/pixmaps/${origname}.png"
