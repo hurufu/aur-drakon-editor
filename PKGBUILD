@@ -24,6 +24,7 @@ makedepends=('git'
              'unzip'
 )
 conflicts=("${origname}")
+provides=("${origname}")
 source=("${reponame}::git+git://github.com/stepan-mitkin/drakon_editor.git"
         "${origname}.png"
         "${origname}.desktop"
