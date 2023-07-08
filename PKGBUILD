@@ -7,7 +7,7 @@ origname=drakon-editor
 origver=1.31
 reponame='repo.git'
 
-pkgname=${origname}-git
+pkgname=${origname}-ada-git
 pkgver=${origver}.r9.g435a4ce
 pkgrel=3
 pkgdesc="A free cross-platform editor for the DRAKON visual language"
@@ -25,7 +25,7 @@ makedepends=('git'
 )
 conflicts=("${origname}")
 provides=("${origname}")
-source=("${reponame}::git+git://github.com/stepan-mitkin/drakon_editor.git"
+source=("${reponame}::git+https://github.com/hurufu/drakon-editor.git#branch=ada"
         "${origname}.png"
         "${origname}.desktop"
         "${origname}.sh"
@@ -35,7 +35,7 @@ source=("${reponame}::git+git://github.com/stepan-mitkin/drakon_editor.git"
 md5sums=('SKIP'
          'fff9a96ac0e38d735452e935207d2892'
          'eadc8e1b7c72f2f6fb438c254fe556e5'
-         'SKIP' # no need to check hashes for local files
+         'SKIP'
          'SKIP'
          '155472d3f6036fc8ea0eacabbf442ec4'
 )
