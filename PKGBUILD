@@ -9,7 +9,7 @@ reponame='repo.git'
 
 pkgname=${origname}-ada-git
 pkgver=1.31.r20.gd95409c
-pkgrel=1
+pkgrel=2
 pkgdesc="A free cross-platform editor for the DRAKON visual language"
 arch=('any')
 url="http://drakon-editor.sourceforge.net/"
