@@ -1,6 +1,6 @@
 pkgbase = drakon-editor-ada-git
 	pkgdesc = A free cross-platform editor for the DRAKON visual language
-	pkgver = 1.31.r9.g435a4ce
+	pkgver = 1.31.r18.g12e7278
 	pkgrel = 3
 	url = http://drakon-editor.sourceforge.net/
 	arch = any
