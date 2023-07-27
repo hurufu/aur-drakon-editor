@@ -8,7 +8,7 @@ origver=1.31
 reponame='repo.git'
 
 pkgname=${origname}-ada-git
-pkgver=1.31.r23.g67ffb40
+pkgver=1.31.r27.g5ffd89c
 pkgrel=1
 pkgdesc="A free cross-platform editor for the DRAKON visual language"
 arch=('any')
